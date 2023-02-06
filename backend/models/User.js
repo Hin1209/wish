@@ -8,19 +8,9 @@ const userSchema = mongoose.Schema({
         type : String,
         required : true
     },
-    id : {
-        type : String,
-        required : true,
-        unique:true
-    },
     birthday : {
         type : Number,
         required : true
-    },
-    nickname : {
-        type : String,
-        requied : true,
-        unique : true
     },
     phonenumber : {
         type : Number,
@@ -36,13 +26,15 @@ const userSchema = mongoose.Schema({
         required : true,
         unique : true
     },
-    confirmpasswords : {
-        type : String,
-        requried : true,
+    friends : {
+        type : Array
     },
     token: {
         type: String
-    }
+    },
+    tokenExp : {
+        type : Number,
+    },
 });
 
 userSchema.pre('save',function(next){
