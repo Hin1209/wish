@@ -65,6 +65,30 @@ app.get('/getFriendsList', (req, res) => {
         })
     })
 })
+app.get('/getUserInfo', (req, res) => {
+    User.findOne({email: req.params.email}, (err, user) => {
+        if(!user) {
+            return
+        }
+        return res.json({
+            "code": 200,
+            "username" : user.name,
+            "profile_img": user.image,
+            "d_day": user.d_day
+        })
+    })
+})
+app.get('/addFriend', (req, res) => {
+    User.findOne({email: req.params.email}, (err, user) => {
+        if(!user) {
+            return
+        }
 
+        return res.json({
+            "code": 200,
+            "result": success
+        })
+    })
+})
 
 app.listen(port,() => console.log('listening on port ${port}!'))

@@ -3,13 +3,18 @@ const mongoose = require("mongoose");
 const saltRounds = 10
 const jwt = require('jsonwebtoken');
 
-const userSchema = mongoose.Schema({
+const imageSchema = new mongoose.Schema({
+    width : Number,
+    height : Number,
+  });
+
+  const userSchema = mongoose.Schema({
     name : {
         type : String,
         required : true
     },
     birthday : {
-        type : Number,
+        type : Date,
         required : true
     },
     phonenumber : {
@@ -28,6 +33,11 @@ const userSchema = mongoose.Schema({
     },
     friends : {
         type : Array
+    },
+    image : imageSchema
+    , 
+    d_day : {
+        type : Number
     },
     token: {
         type: String
