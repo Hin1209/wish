@@ -83,12 +83,13 @@ app.get('/addFriend', (req, res) => {
         if(!user) {
             return
         }
-
+        user.friends.push(req.params.newFriendemail)
         return res.json({
             "code": 200,
             "result": success
         })
     })
-})
+});
+
 
 app.listen(port,() => console.log('listening on port ${port}!'))
