@@ -54,5 +54,17 @@ app.post('/login', (req, res) => {
     })
 })
 
+app.get('/getFriendsList', (req, res) => {
+    User.findOne({email: req.params.email}, (err, user) => {
+        if(!user) {
+            return
+        }
+        return res.json({
+            "code": 200,
+            "friendsList": user.friendsList
+        })
+    })
+})
+
 
 app.listen(port,() => console.log('listening on port ${port}!'))
