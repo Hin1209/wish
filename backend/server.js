@@ -28,11 +28,11 @@ app.post('/register',(req,res) => {
 })
 
 app.post('/login', (req, res) => {
-    User.findOne({id:req.body.id}, (err,user) =>{
+    User.findOne({email:req.body.email}, (err,user) =>{
         if(!user){
             return res.json({
                 loginSuccess: false,
-                message: "제공된 id에 해당하는 유저가 없습니다."
+                message: "제공된 이메일에 해당하는 유저가 없습니다."
             })
         }
 
@@ -47,7 +47,7 @@ app.post('/login', (req, res) => {
                 //npm install cookie-parser --save 쿠키parser 다운받기
                 res.cookie("x_auth",user.token)
                 .status(200)
-                .json({loginSuccess: true, userId: user.id})
+                .json({loginSuccess: true, userId: user.email})
             })         
 
         })
