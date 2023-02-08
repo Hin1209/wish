@@ -1,0 +1,29 @@
+.Login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height : 100vh;
+}
+
+.InputID {
+    display:flex;
+    flex-direction: row;
+}
+
+.InputPW {
+    display:flex;
+    flex-direction: row;
+}
+
+.myID {
+    display: flex;
+}
+
+.myPW {
+    display: flex;
+}
+
+.submit {
+    display: flex;
+}
