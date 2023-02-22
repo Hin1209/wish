@@ -4,6 +4,7 @@ const mongoose = require("mongoose"); // mongoose 모듈을 불러온다.
 const port = 8000;
 const bodyParser = require("body-parser"); //bodyparser 다운받기
 const cookieParser = require('cookie-parser');
+const {auth} = require('./middleware/auth');
 const {User} = require("./models/User");
 const cors = require("cors");
 const db = require("./config/db");
@@ -53,6 +54,32 @@ app.post('/login', (req, res) => {
         })
     })
 })
+
+app.get('/auth', auth, (req,res) => {
+    res.status(200).json({
+      _id:req.user._id,
+      isAdmin:req.user.role === 0 ? false:true,
+      isAuth:true,
+      email:req.user.email,
+      name:req.user.name,
+      birthday:req.user.birthday,
+      phonenumber:req.user.phonenumber,
+      friends:req.user.friends,
+      d_day:req.us.d_day,
+      image:req.user.image
+    })
+  })
+  
+  app.get('/logout', auth, (req,res) => {
+    User.findOneAndUpdate({_id:req.user._id},
+      {token:""}
+      ,(err,user) => {
+        if (err) return res.json({success:false,err});
+        return res.status(200).send({
+          success:true
+        })
+      })
+  })
 
 app.get('/getFriendsList', (req, res) => {
     User.findOne({email: req.params.email}, (err, user) => {
