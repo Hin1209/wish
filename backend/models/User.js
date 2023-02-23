@@ -15,7 +15,8 @@ const imageSchema = new mongoose.Schema({
     },
     id : {
         type : String,
-        required : true
+        required : true,
+        unique : true
     },
     birthday : {
         type : Date,
