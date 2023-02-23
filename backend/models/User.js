@@ -13,6 +13,10 @@ const imageSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    id : {
+        type : String,
+        required : true
+    },
     birthday : {
         type : Date,
         required : true
