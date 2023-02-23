@@ -29,11 +29,11 @@ app.post('/register',(req,res) => {
 })
 
 app.post('/login', (req, res) => {
-    User.findOne({email:req.body.email}, (err,user) =>{
+    User.findOne({id:req.body.id}, (err,user) =>{
         if(!user){
             return res.json({
                 loginSuccess: false,
-                message: "제공된 이메일에 해당하는 유저가 없습니다."
+                message: "제공된 id에 해당하는 유저가 없습니다."
             })
         }
 
@@ -60,6 +60,7 @@ app.get('/auth', auth, (req,res) => {
       _id:req.user._id,
       isAdmin:req.user.role === 0 ? false:true,
       isAuth:true,
+      id:req.user.id,
       email:req.user.email,
       name:req.user.name,
       birthday:req.user.birthday,
@@ -70,7 +71,7 @@ app.get('/auth', auth, (req,res) => {
     })
   })
   
-  app.get('/logout', auth, (req,res) => {
+app.get('/logout', auth, (req,res) => {
     User.findOneAndUpdate({_id:req.user._id},
       {token:""}
       ,(err,user) => {
@@ -79,10 +80,10 @@ app.get('/auth', auth, (req,res) => {
           success:true
         })
       })
-  })
+})
 
 app.get('/getFriendsList', (req, res) => {
-    User.findOne({email: req.params.email}, (err, user) => {
+    User.findOne({id: req.params.id}, (err, user) => {
         if(!user) {
             return
         }
@@ -93,7 +94,7 @@ app.get('/getFriendsList', (req, res) => {
     })
 })
 app.get('/getUserInfo', (req, res) => {
-    User.findOne({email: req.params.email}, (err, user) => {
+    User.findOne({id: req.params.id}, (err, user) => {
         if(!user) {
             return
         }
@@ -106,7 +107,7 @@ app.get('/getUserInfo', (req, res) => {
     })
 })
 app.get('/addFriend', (req, res) => {
-    User.findOne({email: req.params.email}, (err, user) => {
+    User.findOne({id: req.params.id}, (err, user) => {
         if(!user) {
             return
         }
